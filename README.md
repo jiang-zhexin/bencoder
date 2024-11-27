@@ -1,5 +1,5 @@
 # Bencoder
-This project implements cross-platform bencode en/decode in JavaScript.
+Cross-platform bencode en/decode implementation in JavaScript.
 
 ## How to use?
 ### For deno
@@ -24,6 +24,7 @@ deno run --allow-read --allow-write ./main.ts
 ```
 
 ### For node
+Add Package
 ```bash
 pnpm dlx jsr add @zhexin/bencoder
 ```
