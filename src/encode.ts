@@ -1,6 +1,9 @@
 import { dictionary_start, end_of_type, integer_start, list_start, string_delim } from './const.ts'
 import type { element } from './types.ts'
 
+/**
+ * This function converts an object into bencode-encoded bytes.
+ */
 export function BenEncoder(data: element): Uint8Array {
     const textencoder = new TextEncoder()
     return encoder(data)
