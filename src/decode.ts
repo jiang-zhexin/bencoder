@@ -9,11 +9,11 @@ export function BenDecoder(data: Uint8Array): element {
     function next(): element {
         switch (data.at(position)) {
             case dictionary_start:
-                return dictionary()
+                return dict()
             case list_start:
                 return list()
             case integer_start:
-                return integer()
+                return number()
             default: {
                 const bytes = buffer()
                 try {
@@ -25,7 +25,7 @@ export function BenDecoder(data: Uint8Array): element {
         }
     }
 
-    function dictionary(): dict {
+    function dict(): dict {
         position++
         const dict: dict = {}
 
@@ -50,7 +50,7 @@ export function BenDecoder(data: Uint8Array): element {
         return list
     }
 
-    function integer(): number {
+    function number(): number {
         const end = find(end_of_type)
         const number = bytes2number(data.slice(position + 1, end))
         position = end + 1
