@@ -1,4 +1,6 @@
 # Bencoder
+[![JSR Scope](https://jsr.io/badges/@zhexin)](https://jsr.io/@zhexin) [![JSR](https://jsr.io/badges/@zhexin/bencoder)](https://jsr.io/@zhexin/bencoder) [![JSR Score](https://jsr.io/badges/@zhexin/bencoder/score)](https://jsr.io/@zhexin/bencoder)
+
 Cross-platform bencode en/decode implementation in JavaScript.
 
 ## How to use?
