@@ -4,10 +4,10 @@ import type { dict, element, list } from './types.ts'
 /**
  * This function converts bencode-encoded bytes into an object.
  */
-export function BenDecoder(data: Uint8Array): element {
+export function BenDecoder<T = unknown>(data: Uint8Array): T {
     let position = 0
     const textdecoder = new TextDecoder('utf-8', { fatal: true })
-    return next()
+    return next() as T
 
     function next(): element {
         switch (data.at(position)) {
