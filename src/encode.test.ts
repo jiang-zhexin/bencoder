@@ -23,5 +23,5 @@ Deno.test('torrent', async () => {
 async function hash(data: Uint8Array) {
     const algorithm = 'SHA-256'
     const buffer = await crypto.subtle.digest(algorithm, data)
-    return btoa(String.fromCharCode(...new Uint8Array(buffer)))
+    return btoa(new Uint8Array(buffer).toString())
 }
