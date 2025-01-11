@@ -1,4 +1,4 @@
-import { dictionary_start, end_of_type, integer_start, list_start, string_delim } from './const.ts'
+import { flag } from './const.ts'
 import type { element } from './types.ts'
 
 /**
@@ -41,25 +41,25 @@ export function BenEncoder(data: element): Uint8Array {
             arrays.push(kb, vb)
         }
         const mergedArray = mergeUint8Arrays(arrays)
-        mergedArray[0] = dictionary_start
-        mergedArray[mergedArray.length - 1] = end_of_type
+        mergedArray[0] = flag.dictionary_start
+        mergedArray[mergedArray.length - 1] = flag.end_of_type
         return mergedArray
     }
 
     function list(data: Array<element>): Uint8Array {
         const arrays = data.map((v) => encoder(v))
         const mergedArray = mergeUint8Arrays(arrays)
-        mergedArray[0] = list_start
-        mergedArray[mergedArray.length - 1] = end_of_type
+        mergedArray[0] = flag.list_start
+        mergedArray[mergedArray.length - 1] = flag.end_of_type
         return mergedArray
     }
 
     function number(data: number | bigint): Uint8Array {
         const bytes = textencoder.encode(data.toString())
         const result = new Uint8Array(bytes.length + 2)
-        result[0] = integer_start
+        result[0] = flag.integer_start
         result.set(bytes, 1)
-        result[bytes.length + 1] = end_of_type
+        result[bytes.length + 1] = flag.end_of_type
         return result
     }
 
@@ -72,7 +72,7 @@ export function BenEncoder(data: element): Uint8Array {
         const strlength = data.length.toString()
         const result = new Uint8Array(strlength.length + 1 + data.length)
         result.set(textencoder.encode(strlength))
-        result[strlength.length] = string_delim
+        result[strlength.length] = flag.string_delim
         result.set(data, strlength.length + 1)
         return result
     }

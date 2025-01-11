@@ -1,5 +1,7 @@
-export const integer_start = 0x69 // 'i'
-export const string_delim = 0x3A // ':'
-export const dictionary_start = 0x64 // 'd'
-export const list_start = 0x6C // 'l'
-export const end_of_type = 0x65 // 'e'
+export enum flag {
+    integer_start = 0x69, // 'i'
+    string_delim = 0x3A, // ':'
+    dictionary_start = 0x64, // 'd'
+    list_start = 0x6C, // 'l'
+    end_of_type = 0x65, // 'e'
+}

@@ -1,4 +1,4 @@
-import { dictionary_start, end_of_type, integer_start, list_start, string_delim } from './const.ts'
+import { flag } from './const.ts'
 import type { dict, element, list } from './types.ts'
 
 /**
@@ -11,11 +11,11 @@ export function BenDecoder<T = unknown>(data: Uint8Array): T {
 
     function next(): element {
         switch (data.at(position)) {
-            case dictionary_start:
+            case flag.dictionary_start:
                 return dict()
-            case list_start:
+            case flag.list_start:
                 return list()
-            case integer_start:
+            case flag.integer_start:
                 return number()
             default: {
                 const bytes = buffer()
@@ -32,7 +32,7 @@ export function BenDecoder<T = unknown>(data: Uint8Array): T {
         position++
         const dict: dict = {}
 
-        while (data.at(position) !== end_of_type) {
+        while (data.at(position) !== flag.end_of_type) {
             const key = string()
             dict[key] = next()
         }
@@ -45,7 +45,7 @@ export function BenDecoder<T = unknown>(data: Uint8Array): T {
         position++
         const list: list = []
 
-        while (data.at(position) !== end_of_type) {
+        while (data.at(position) !== flag.end_of_type) {
             list.push(next())
         }
 
@@ -54,7 +54,7 @@ export function BenDecoder<T = unknown>(data: Uint8Array): T {
     }
 
     function number(): number {
-        const end = find(end_of_type)
+        const end = find(flag.end_of_type)
         const number = bytes2number(data.slice(position + 1, end))
         position = end + 1
         return number
@@ -65,7 +65,7 @@ export function BenDecoder<T = unknown>(data: Uint8Array): T {
     }
 
     function buffer(): Uint8Array {
-        const sep = find(string_delim)
+        const sep = find(flag.string_delim)
         const length = bytes2number(data.slice(position, sep))
         const end = sep + 1 + length
         position = end
